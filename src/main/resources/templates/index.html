@@ -3,16 +3,182 @@
   <head>
   	<meta charset="utf-8">
   	<title>Control de Servicios - Inicio</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-touch.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-aria.js"></script>
+    <!--<script src="https://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="https://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="https://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <script src="https://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
+    <script src="https://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
+    <script src="https://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>-->
+    <!-- <script src="/release/ui-grid.js"></script> -->
+    <!-- <link rel="stylesheet" href="/release/ui-grid.css" type="text/css"> -->
+	<script src="https://cdn.jsdelivr.net/gh/angular-ui/bower-ui-grid/ui-grid.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/angular-ui/bower-ui-grid/ui-grid.min.css" type="text/css">
+    <script src="/js/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
   </head>
   <body>
-    <div>
+    <div ng-controller="MainCtrl as $ctrl">
 	  <a href="/">Inicio</a>&nbsp;
       <a href="/insertclient">Crear Cliente</a>&nbsp;
 <!--       <a href="/importarclientes">Importar Clientes</a>&nbsp; -->
 	  <a href="informeDiario">Informe Diario</a>&nbsp;
       <a href="/help">Ayuda</a>&nbsp;
       <a href="/about">About</a>&nbsp;
+      <br><br>
+      <button id="filterToggle" type="button" class="btn btn-success" ng-click="$ctrl.toggleFilterRow()">Limpiar filtros</button>
+<!--       <button id="refreshButton" type="button" class="btn btn-success" ng-click="$ctrl.refreshData()">Refresh Data</button>  <strong>Calls Pending:</strong> <span ng-bind="$ctrl.callsPending"></span> -->
+      <button id="refreshButton" type="button" class="btn btn-success" ng-click="$ctrl.refreshData()" title="Recupera todos los clientes desde la base de datos">Actualizar Datos</button> 
+<!--       <button id="test" type="button" class="btn btn-success" ng-click="$ctrl.test()">Test</button> -->
+      <button id="verDetalleId" type="button" class="btn btn-success" ng-click="$ctrl.verDetalle()">Ver Detalle del Cliente</button>
+      <button id="modificarId" type="button" class="btn btn-success" ng-click="$ctrl.verModifyClient()">Modificar Cliente</button>
+      <button id="deleteId" type="button" class="btn btn-success" ng-click="$ctrl.deleteClient()">Borrar Cliente</button>
+<!--       <button id="test" type="button" class="btn btn-success" ng-click="$ctrl.newClient()">Crear Cliente</button> -->
+      <br>
+      <br>
+      <strong>{{ myData.length }} clientes</strong>
+      <br>
+      <div id="grid1" ui-grid="$ctrl.gridOptions" ui-grid-cellNav ui-grid-edit ui-grid-resize-columns ui-grid-pinning ui-grid-selection ui-grid-move-columns ui-grid-importer ui-grid-exporter ui-grid-grouping class="grid"></div>
+      
+      <div id="user-detail" ng-show="$ctrl.mostrardetalle">
 
+      			<div ng-if="$ctrl.cliente.ordenes_de_trabajo.length == 0">
+      				<h3>El cliente {{ $ctrl.cliente.nombre }} no tiene Ordenes de Trabajo</h3>
+      			</div>
+      			
+			    <div ng-if="$ctrl.cliente.ordenes_de_trabajo.length > 0">
+<!-- 			        mostrar la grilla. -->
+				<h3>Ordenes de Trabajo del Cliente {{ $ctrl.cliente.nombre }}</h3>
+			    
+				<table id="verCliente">
+		            <tr>
+		                <th>Id Orden de Trabajo</th>
+		                <th>Total</th>
+		                <th>Fecha</th>
+		                <th>Observación</th>
+		                <th>Servicios</th>
+		            </tr>
+					<tbody ng-repeat="ot in $ctrl.cliente.ordenes_de_trabajo" >
+			    		<tr>
+			    			<td>{{ ot.idOT }}</td>		    			
+			    			<td>{{ ot.total }}</td>
+<!-- 			    			<td>{{ ot.fecha }}</td> -->
+			    			<td>{{ $ctrl.getDateAsString(ot.fecha) }}</td>
+			    			<td>{{ ot.observacion }}</td>
+			    			<td>
+				    			<table>
+						            <tr>
+						                <th>Id Servicio</th>
+						                <th>Tipo De Servicio</th>
+						                <th>Detalle del Servicio</th>
+						                <th>Monto</th>
+						            </tr>
+<!-- 				    				<tbody ng-repeat="servicio in ot.servicios | orderBy : idServicioOT" > -->
+				    				<tbody ng-repeat="servicio in ot.servicios" >
+				    					<tr>
+				    						<td>{{ servicio.idServicioOT }}</td>
+				    						<td>{{ servicio.tipoServicio.nombre }}</td>
+				    						<td>{{ servicio.detalleServicio }}</td>
+				    						<td>{{ servicio.monto }}</td>
+				    					</tr>
+				    				</tbody>
+				    			</table>		    			
+			    			</td>
+			    		</tr>
+			        </tbody>
+			    </table>
+			    </div>
+      	
+      	
+<!--       	<button id="test2" type="button" class="btn btn-success" ng-click="$ctrl.test()">Test2</button> -->
+      
+      </div>
+      
+<!--       el siguiente div despliega el cliente seleccionado para modificación de sus datos -->
+      <div id="modifyclient" ng-show="$ctrl.mostrarmodify">
+      <h3>Modificación del cliente: {{ $ctrl.cliente.nombre }}</h3>
+<!-- 			<br> -->
+			<div>
+				<input type="button" value="Grabar" ng-click="$ctrl.modifyClient()" title="Actualiza en la base de datos los datos modificados para este cliente">
+				<input type="button" value="Agregar OT" ng-click="$ctrl.addOT()" ng-disabled="$ctrl.deshabilitar" title="Agregar una Orden de Trabajo para este cliente">
+<!-- 				<input type="button" value="Agregar Servicio a la OT" ng-click="$ctrl.addService()" title="Agregar un servicio a la Orden de Trabajo"> -->
+<!-- 				<input type="button" value="Test" ng-click="$ctrl.test()" title="Botón usado para realizar pruebas"> -->
+			</div>
+			
+			<br>
+      
+			<div ng-if="$ctrl.cliente.ordenes_de_trabajo.length > 0">
+<!-- 			<table ng-show="IsVisible"> -->
+			<table id="modifyClient">
+	            <tr>
+	                <th>Id Orden de Trabajo</th>
+	                <th>Total</th>
+	                <th>Fecha</th>
+	                <th>Observación</th>
+	                <th>Servicios</th>
+	                <th></th>
+	            </tr>
+				<tbody ng-repeat="ot in $ctrl.cliente.ordenes_de_trabajo" ng-init="idxOT=$index;">
+		    		<tr>
+		    			<td>{{ ot.idOT }}</td>		    			
+<!-- 		    			<td>{{ ot.total }}</td> -->
+		    			<td><input type="text" ng-model="ot.total" readonly></td>
+<!-- 		    			<td contenteditable>{{ ot.fecha }}</td> -->
+		    			<td><input type="date" ng-model="ot.fecha"></td>
+<!-- 		    			<td contenteditable><input type="date" ng-model="ot.fecha" value={{ ot.fecha }}></td> -->
+<!-- 		    			<td contenteditable>{{ ot.observacion }}</td> -->
+		    			<td><input type="text" ng-model="ot.observacion"></td>
+<!-- 		    			<td contenteditable><input type="text" ng-model="ot.observacion" ng-change="$ctrl.test()"></td> -->
+		    			<td>
+			    			<table>
+					            <tr>
+<!-- 					                <th>Id Tipo De Servicio</th> -->
+					                <th>Tipo De Servicio</th>
+					                <th>Detalle del Servicio</th>
+					                <th>Monto</th>
+					                <th></th>
+					            </tr>
+			    				<tbody ng-repeat="servicio in ot.servicios" >
+			    					<tr>
+<!-- 			    						<td>{{ servicio.idServicioOT }}</td> -->
+<!-- 			    						<td contenteditable><select ng-model="{{ servicio.tipoServicio.idServicio }}"> esto no funciona -->			    				
+		
+<!-- 			    						<td contenteditable><select> -->
+<!-- 												<option value="1" ng-selected="{{ servicio.tipoServicio.idServicio == 1 }}">Lavado de Alfombras Muro a Muro</option> -->
+<!-- 												<option value="2" ng-selected="{{ servicio.tipoServicio.idServicio == 2 }}">Lavado de Alfombras Sueltas</option> -->
+<!-- 												<option value="3" ng-selected="{{ servicio.tipoServicio.idServicio == 3 }}">Limpieza de Piso Flotante</option> -->
+<!-- 												<option value="4" ng-selected="{{ servicio.tipoServicio.idServicio == 4 }}">Limpieza de Tapices de Muebles</option> -->
+<!-- 												<option value="5" ng-selected="{{ servicio.tipoServicio.idServicio == 5 }}">Limpieza de Tapices de Automóviles</option> -->
+<!-- 												<option value="6" ng-selected="{{ servicio.tipoServicio.idServicio == 6 }}">Lavandería Con Retiro a Domicilio</option> -->
+<!-- 												<option value="7" ng-selected="{{ servicio.tipoServicio.idServicio == 7 }}">Limpieza de Colchones</option> -->
+<!-- 												<option value="10" ng-selected="{{ servicio.tipoServicio.idServicio == 10 }}">Otro Servicio</option> -->
+<!--  											</select></td>	 -->
+ 											
+ 											<td>
+ 												<select name="mySelect" id="mySelect"
+	      												ng-options="option.nombre for option in data.availableOptions track by option.idServicio"
+ 	     												 ng-model="servicio.tipoServicio">
+<!--  	     												 <option ng-selected="servicio.tipoServicio.idServicio == option.idServicio" >{{option.nombre}}</option> -->
+ 	     										</select>
+ 											</td>
+ 											
+<!-- 			    						<td contenteditable>{{ servicio.detalleServicio }}</td> -->
+			    						<td><input type="text" ng-model="servicio.detalleServicio"></td>
+<!-- 			    						<td contenteditable>{{ servicio.monto }}</td> -->
+			    						<td><input type="text" ng-model="servicio.monto" ng-change="$ctrl.updteTotalOT(idxOT)"></td>
+			    					</tr>
+			    				</tbody>
+			    			</table>		    			
+		    			</td>
+		    			<td><input type="button" value="Agregar Servicio a la OT" ng-click="$ctrl.addService($index)" title="Agregar un servicio a la Orden de Trabajo"></td>
+		    		</tr>
+		        </tbody>
+		    </table>
+			</div>
+      </div>
       
     </div>
   </body>
