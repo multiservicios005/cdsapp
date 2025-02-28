@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS obtener datos de un cliente</title>
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+  
+<script>
+// 	document.getElementById("celdaId").addEventListener("focusout", test9, true);
+	
+	function test9(){
+// 		alert("hola");
+// 		document.form1.
+	}
+</script>
+  
+</head>
+<body>
+
+<div ng-app="app" ng-controller="appCtrl as vm">
+	<h1>Datos de un Cliente</h1>
+	<section>
+		<form ng-submit="vm.getClient()">
+			<div>
+				Id Cliente: <input type="text" ng-model="vm.idCliente" value=152>
+				<input type="submit" value="Buscar Cliente">
+				<input type="button" value="Grabar" ng-click="vm.modifyclient()" title="Actualiza en la base de datos los datos modificados para este cliente">
+				<input type="button" value="Test" ng-click="vm.test()" title="Botón usado para realizar pruebas">
+			</div>
+			<br>
+			<br>
+			<p th:text="'idCliente, ' + ${idCliente} + '!'" />
+
+<!-- 			{{ vm.cliente }}<br> -->
+			{{ vm.respuesta }}
+			<br><br>
+			<div ng-if="vm.cliente.nombre != null">
+			{{ vm.cliente.idCliente }}<br>
+			
+			Nombre: {{ vm.cliente.nombre }}<br>
+			<br>
+			<br>
+			Teléfono: {{ vm.cliente.telefono }}<br>
+			<br>
+			<br>
+			Fecha: {{ vm.cliente.fecha }}<br>
+			<br>
+			<br>
+			Dirección: {{ vm.cliente.direccion }}<br>
+			<br>
+			<br>
+			Observación: {{ vm.cliente.observacion }}<br>
+			
+			
+			<br><br><br>
+			    <div ng-if="vm.cliente.ordenes_de_trabajo.length > 0">
+<!-- 			        mostrar la grilla. -->
+			    
+				<table>
+		            <tr>
+		                <th>Id Orden de Trabajo</th>
+		                <th>Total</th>
+		                <th>Fecha</th>
+		                <th>Observación</th>
+		                <th>Servicios</th>
+		            </tr>
+					<tbody ng-repeat="ot in vm.cliente.ordenes_de_trabajo" >
+			    		<tr>
+			    			<td>{{ ot.idOT }}</td>		    			
+			    			<td>{{ ot.total }}</td>
+			    			<td>{{ ot.fecha }}</td>
+			    			<td>{{ ot.observacion }}</td>
+			    			<td>
+				    			<table>
+						            <tr>
+						                <th>Id Servicio</th>
+						                <th>Tipo De Servicio</th>
+						                <th>Detalle del Servicio</th>
+						                <th>Monto</th>
+						            </tr>
+				    				<tbody ng-repeat="servicio in ot.servicios" >
+				    					<tr>
+				    						<td>{{ servicio.idServicioOT }}</td>
+				    						<td>{{ servicio.tipoServicio.nombre }}</td>
+				    						<td>{{ servicio.detalleServicio }}</td>
+				    						<td>{{ servicio.monto }}</td>
+				    					</tr>
+				    				</tbody>
+				    			</table>		    			
+			    			</td>
+			    		</tr>
+			        </tbody>
+			    </table>
+			    </div>
+			</div>
+			<br><br>
+			
+		</form>
+	</section>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+<script type="text/javascript" src="/js/getcliente.js"></script>
+ 
+</body>
+</html>

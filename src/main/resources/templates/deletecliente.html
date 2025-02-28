@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>Borrar un Cliente</title>
+</head>
+<body>
+
+<div ng-app="app" ng-controller="appCtrl as vm">
+	<h1>Borrar un Cliente</h1>
+	<section>
+		<form ng-submit="vm.delete()">
+			<br>
+			ID Cliente: <input type="text" ng-model="vm.idCliente">
+			<br><br>
+<!-- 		<input type="button" value="Borrar cliente" ng-click="vm.delete()"/> -->
+			<input type="submit" value="Borrar Cliente">
+		</form>
+	</section>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+<script type="text/javascript" src="/js/delete.js"></script>
+ 
+</body>
+</html>

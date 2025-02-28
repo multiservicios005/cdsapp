@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS obtener datos de un cliente para modificar</title>
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+  
+<script>
+// 	document.getElementById("celdaId").addEventListener("focusout", test9, true);
+	
+	function test9(){
+// 		alert("hola");
+// 		document.form1.
+	}
+</script>
+  
+</head>
+<body>
+
+<div ng-app="app" ng-controller="appCtrl as vm">
+	<h1>Modificar Datos de un Cliente</h1>
+	<section>
+		<form ng-submit="vm.getClient()">
+			<div>
+<!-- 				Id Cliente: <input type="text" ng-model="vm.idCliente"> -->
+				Id Cliente: <input type="text" ng-model="vm.idCliente" ng-init="vm.idCliente=3">
+				<input type="submit" value="Buscar Cliente">
+				<input type="button" value="Actualizar la OT" ng-click="vm.enviar22()">
+			</div>
+			<br>
+			<br>
+
+<!-- 			{{ vm.cliente }}<br> -->
+<!-- 			{{ vm.respuesta }} -->
+			<p th:text="'Hello, ' + ${name} + '!'" />
+			<br><br>
+			<div>
+			{{ vm.cliente.idCliente }}<br>
+			
+			Nombre: <input type="text" ng-model="vm.cliente.nombre" placeholder="">
+			<br>
+			<br>
+			Teléfono: <input type="text" ng-model="vm.cliente.telefono" placeholder="">
+			<br>
+			<br>
+<!-- 			Fecha: <input type="date" id="myDate" value="2014-02-09"> -->
+			Fecha: <input type="text" ng-model="vm.cliente.fecha" placeholder="">
+<!-- 			Fecha: <input type="date" id="fechacli" ng-model="vm.cliente.fecha" value="2019-10-22"> -->
+			<br>
+<!-- 			fecha 2<input type="date" name="fecha2" value="2019-10-22"> -->
+			<br>
+			Dirección: <input type="text" ng-model="vm.cliente.direccion" placeholder="">
+			<br>
+			<br>
+<!-- 			Observación: <input type="text" ng-model="vm.fdatos.observacion"> -->
+			Observación: <input type="text" ng-model="vm.cliente.observacion">
+			
+			<br><br>
+			<div>
+<!-- 			<input type="submit" value="Crear Cliente"> -->
+				<input type="button" value="Grabar" ng-click="vm.modifyclient()" title="Actualiza en la base de datos los datos modificados para este cliente">
+<!-- 			<input type="button" value="Crear Cliente" onClick="test()"> -->
+				<input type="button" value="Agregar OT" ng-click="vm.addOT()" title="Agregar una Orden de Trabajo para este cliente">
+				<input type="button" value="Agregar Servicio a la OT" ng-click="vm.addService()" title="Agregar un servicio a la Orden de Trabajo">
+				<input type="button" value="Test" ng-click="vm.test()" title="Botón usado para realizar pruebas">
+			</div>
+			
+			<br><br><br>
+			<div ng-if="vm.cliente.ordenes_de_trabajo.length > 0">
+<!-- 			<table ng-show="IsVisible"> -->
+			<table>
+	            <tr>
+	                <th>Id Orden de Trabajo</th>
+	                <th>Total</th>
+	                <th>Fecha</th>
+	                <th>Observación</th>
+	                <th>Servicios</th>
+	                <th></th>
+	            </tr>
+				<tbody ng-repeat="ot in vm.cliente.ordenes_de_trabajo" >
+		    		<tr>
+		    			<td>{{ ot.idOT }}</td>		    			
+		    			<td>{{ ot.total }}</td>
+		    			<td contenteditable>{{ ot.fecha }}</td>
+		    			<td contenteditable>{{ ot.observacion }}</td>
+		    			<td>
+			    			<table>
+					            <tr>
+<!-- 					                <th>Id Tipo De Servicio</th> -->
+					                <th>Tipo De Servicio</th>
+					                <th>Detalle del Servicio</th>
+					                <th>Monto</th>
+					            </tr>
+			    				<tbody ng-repeat="servicio in ot.servicios" >
+			    					<tr>
+<!-- 			    						<td>{{ servicio.idServicioOT }}</td> -->
+<!-- 			    						<td contenteditable><select ng-model="{{ servicio.tipoServicio.idServicio }}"> esto no funciona -->			    						
+			    						<td contenteditable><select>
+												<option value="1" ng-selected="{{ servicio.tipoServicio.idServicio == 1 }}">Lavado de Alfombras Muro a Muro</option>
+												<option value="2" ng-selected="{{ servicio.tipoServicio.idServicio == 2 }}">Lavado de Alfombras Sueltas</option>
+												<option value="3" ng-selected="{{ servicio.tipoServicio.idServicio == 3 }}">Limpieza de Piso Flotante</option>
+												<option value="4" ng-selected="{{ servicio.tipoServicio.idServicio == 4 }}">Limpieza de Tapices de Muebles</option>
+												<option value="5" ng-selected="{{ servicio.tipoServicio.idServicio == 5 }}">Limpieza de Tapices de Automóviles</option>
+												<option value="6" ng-selected="{{ servicio.tipoServicio.idServicio == 6 }}">Lavandería Con Retiro a Domicilio</option>
+												<option value="7" ng-selected="{{ servicio.tipoServicio.idServicio == 7 }}">Limpieza de Colchones</option>
+												<option value="10" ng-selected="{{ servicio.tipoServicio.idServicio == 10 }}">Otro Servicio</option>
+ 											</select></td>	
+			    						<td contenteditable>{{ servicio.detalleServicio }}</td>
+			    						<td contenteditable>{{ servicio.monto }}</td>
+			    					</tr>
+			    				</tbody>
+			    			</table>		    			
+		    			</td>
+		    			<td><input type="button" value="Agregar Servicio a la OT" ng-click="vm.addService($index)" title="Agregar un servicio a la Orden de Trabajo"></td>
+		    		</tr>
+		    		<tr>
+		    			<table>
+<!-- 		    				Este ciclo no funciona porque no se reconoce la lista ot.servicios al parecer por no  estar en el <tr> anterior -->
+		    				<tbody ng-repeat="servicio in ot.servicios" >
+		    					<tr>
+		    						<td>servicio.idServicioOT</td>
+		    						<td>servicio.tipoServicio</td>
+		    						<td>servicio.detalleServicio</td>
+		    						<td>servicio.monto</td>
+		    					</tr>
+		    				</tbody>
+		    			</table>		    		
+		    		</tr>
+		        </tbody>
+		    </table>
+			</div>
+			<br><br>
+			
+		</form>
+	</section>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+<script type="text/javascript" src="/js/getcliente.js"></script>
+ 
+</body>
+</html>

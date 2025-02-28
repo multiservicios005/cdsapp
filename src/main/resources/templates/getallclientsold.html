@@ -1,0 +1,72 @@
+<!doctype html>
+<html ng-app="demo">
+	<head>
+		<meta charset="utf-8">
+		<title>Clientes</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    	<script type="text/javascript" src="/js/getallclients.js"></script>
+    	
+    	
+ <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+<script>
+// alert("DataTables");
+	$(document).ready(function() {
+	    $('#example').DataTable();
+	} );
+</script>
+
+	</head>
+
+	<body>
+		<div ng-controller="Hello as vm">
+		
+<!-- 		los clientes son: {{ vm.clientes }} -->
+
+<!-- 				<table ng-repeat="cliente in vm.clientes" > -->
+				<table id="example" class="display" style="width:100%">
+				        <thead>
+				            <tr>
+				                <th>ID Cliente</th>
+				                <th>Nombre</th>
+				                <th>Teléfono</th>
+				                <th>Dirección</th>
+				                <th>Fecha</th>
+				                <th>Observación</th>
+				                <th>OTs</th>
+				            </tr>
+				        </thead>
+				        <tbody ng-repeat="cliente in vm.clientes" >
+				    		<tr>
+				    			<td>{{cliente.idCliente}}</td>		    			
+				    			<td>{{ cliente.nombre }}</td>
+				    			<td>{{ cliente.telefono }}</td>
+				    			<td>{{ cliente.direccion }}</td>
+				    			<td>{{ cliente.fecha }}</td>
+				    			<td>{{ cliente.observacion }}</td>
+				    			<td>{{ cliente.ordenes_de_trabajo }}</td>
+		<!-- 		    			<td onclick="alert('borrar el cliente')">eliminar</td> -->
+		<!-- 		    			<td><input type="button" value="Detalle" ng-click="vm.detalle(5)"/></td> -->
+				    		</tr>
+				        </tbody>
+				        <tfoot>
+				            <tr>
+				                <th>ID Cliente</th>
+				                <th>Nombre</th>
+				                <th>Teléfono</th>
+				                <th>Dirección</th>
+				                <th>Fecha</th>
+				                <th>Observación</th>
+				                <th>OTs</th>
+				            </tr>
+				        </tfoot>
+		    	</table>
+    
+    	</div>
+    	
+	</body>
+</html>
