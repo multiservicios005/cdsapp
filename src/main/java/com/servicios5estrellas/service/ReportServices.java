@@ -131,7 +131,7 @@ public class ReportServices {
 		VentaMensualPorServicio lineaRpt;
 //		ServicioDAO servicioDao = new ServicioDAO();
 //		TODO arreglo transitorio para determinar los años registrados en el sistema. Esta lista debe ser obtenida desde la base de datos
-		String agnos[] = {"2017","2018","2019","2020"};
+		String agnos[] = {"2017","2018","2019","2020","2021","2022","2023","2024","2025"};
 		String key;
 		int idService;
 		
