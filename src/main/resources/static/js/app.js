@@ -11,6 +11,10 @@ app.controller('MainCtrl',
    vm.idCliente;
    vm.cliente = {};
    vm.cliente.comuna = "Viña del Mar";
+   
+  $scope.gridOptions = {
+    enableRowSelection: true
+  };
 	
    $scope.data = {
 		    availableOptions: [
