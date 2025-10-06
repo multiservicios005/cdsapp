@@ -15,6 +15,7 @@ import com.servicios5estrellas.model.Cliente;
 import com.servicios5estrellas.model.Orden_De_Trabajo;
 import com.servicios5estrellas.model.Servicio;
 import com.servicios5estrellas.model.ServicioOT;
+import com.servicios5estrellas.pdf.OrdenTrabajoPDF;
 import com.servicios5estrellas.reportes.model.InformeDiarioLineaDetalle;
 import com.servicios5estrellas.reportes.model.InformeDiarioRpt;
 import com.servicios5estrellas.reportes.model.VentasDiariasPorServicio;
@@ -25,6 +26,8 @@ import com.servicios5estrellas.repository.ITipoServicioRepository;
 import com.servicios5estrellas.repository.SequenceDao;
 import com.servicios5estrellas.service.ExcelService;
 import com.servicios5estrellas.service.ReportServices;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -226,6 +229,26 @@ System.out.println("nro de tipos de servicios: "+repo.findAll().size());
 		System.out.println("ControlServiciosController.importView.");
 		
 		return "import";
+	}
+	
+	@RequestMapping("/getNroOT")
+	public String getNroOT() {
+		return "getNroOT";
+	}
+	
+	@RequestMapping("/generarPdfOT")
+	public String generarPdfOT(HttpServletRequest req) {
+		System.out.println("ControlServiciosController.generarPdfOT ");
+		
+		System.out.println("Número OT: "+req.getParameter("textoBusqueda"));
+		
+//		Obtener la OT desde la base de datos
+//		Generar el PDF
+		OrdenTrabajoPDF otPDF = new OrdenTrabajoPDF();
+		otPDF.generarpdf();
+		otPDF.descargarpdf();
+		
+		return "generarPdfOT";
 	}
 
 }

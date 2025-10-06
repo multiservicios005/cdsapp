@@ -25,6 +25,11 @@ public class RestImportController {
 		System.out.println("RestImportController.save ");
 		System.out.println("clientes size  "+clientes.size());
 		
+		/**
+		TODO Insertar el código para generarTipoServicios
+		obtener este código desde ControlServiciosController.generarTipoServicios()
+		**/
+		
 		for (Cliente cliente : clientes) {		
 			for (Orden_De_Trabajo ot : cliente.getOrdenes_de_trabajo()) {
 				ot.setCliente(cliente);
