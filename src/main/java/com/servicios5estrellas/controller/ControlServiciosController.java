@@ -21,6 +21,7 @@ import com.servicios5estrellas.reportes.model.InformeDiarioRpt;
 import com.servicios5estrellas.reportes.model.VentasDiariasPorServicio;
 import com.servicios5estrellas.reportes.model.VentasMensualesPorServicio;
 import com.servicios5estrellas.repository.IClienteRepository;
+import com.servicios5estrellas.repository.IOrden_De_TrabajoRepository;
 import com.servicios5estrellas.repository.IServicioOTRepository;
 import com.servicios5estrellas.repository.ITipoServicioRepository;
 import com.servicios5estrellas.repository.SequenceDao;
@@ -28,6 +29,7 @@ import com.servicios5estrellas.service.ExcelService;
 import com.servicios5estrellas.service.ReportServices;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 @Controller
@@ -53,6 +55,9 @@ public class ControlServiciosController {
 	
 	@Autowired
 	private ReportServices reportService;
+	
+	@Autowired
+	private IOrden_De_TrabajoRepository repoOT;
 	
 	@RequestMapping("/")
 	public String start() {
@@ -236,19 +241,34 @@ System.out.println("nro de tipos de servicios: "+repo.findAll().size());
 		return "getNroOT";
 	}
 	
-	@RequestMapping("/generarPdfOT")
-	public String generarPdfOT(HttpServletRequest req) {
+	@RequestMapping("/generarPdfOTold")
+	public String generarPdfOTold(HttpServletRequest req) {
 		System.out.println("ControlServiciosController.generarPdfOT ");
 		
-		System.out.println("Número OT: "+req.getParameter("textoBusqueda"));
+		System.out.println("Número OT: "+req.getParameter("idOT"));
 		
 //		Obtener la OT desde la base de datos
 //		Generar el PDF
 		OrdenTrabajoPDF otPDF = new OrdenTrabajoPDF();
 		otPDF.generarpdf();
-		otPDF.descargarpdf();
+		otPDF.descargarpdfOld();
 		
 		return "generarPdfOT";
+	}
+	
+	@RequestMapping("/generarPdfOT")
+	public void generarPdfOT(HttpServletRequest req, HttpServletResponse resp) {
+		System.out.println("ControlServiciosController.generarPdfOT ");
+		
+		int idOT = Integer.valueOf(req.getParameter("idOT"));
+		OrdenTrabajoPDF otPDF = new OrdenTrabajoPDF(repoOT.getReferenceById(idOT));
+		
+		resp.setContentType("application/pdf");
+//		String filename = req.getParameter("filename");
+		
+		resp.setHeader("content-disposition", "attachment; filename=ordendetrabajo.pdf");
+		otPDF.descargarpdf(resp);
+		
 	}
 
 }
