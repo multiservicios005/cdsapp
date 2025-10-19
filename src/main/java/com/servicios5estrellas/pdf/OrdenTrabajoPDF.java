@@ -158,7 +158,8 @@ public class OrdenTrabajoPDF {
 			PdfWriter.getInstance(documento, resp.getOutputStream());
 			documento.open();
 //			Image img = Image.getInstance("src/main/resources/static/img/logo.jpg");
-			Image img = Image.getInstance("http://cdsapp.onrender.com/logo.png");
+			Image img = Image.getInstance(System.getProperty("user.dir")+"/logo.jpg");
+//			Image img = Image.getInstance("http://cdsapp.onrender.com/logo.jpg");
 			img.scalePercent(40);
 			img.setAlignment(Element.ALIGN_CENTER);
 			documento.add(img);
