@@ -1,5 +1,6 @@
 package com.servicios5estrellas.pdf;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -158,7 +159,9 @@ public class OrdenTrabajoPDF {
 			PdfWriter.getInstance(documento, resp.getOutputStream());
 			documento.open();
 //			Image img = Image.getInstance("src/main/resources/static/img/logo.jpg");
-			Image img = Image.getInstance(System.getProperty("user.dir")+"/logo.jpg");
+			getDir(System.getProperty("user.dir"));
+			Image img = Image.getInstance("/logo.jpg");
+//			Image img = Image.getInstance(System.getProperty("user.dir")+"/logo.jpg");
 //			Image img = Image.getInstance("http://cdsapp.onrender.com/logo.jpg");
 			img.scalePercent(40);
 			img.setAlignment(Element.ALIGN_CENTER);
@@ -333,6 +336,19 @@ public class OrdenTrabajoPDF {
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Muestra la lista de directorios y archivos que contiene el directorio dir
+	 * @param dir
+	 */
+	public void getDir(String dir) {
+		File directorio = new File(dir);
+		File[] archivos = directorio.listFiles();
+		System.out.println("dir: "+dir);
+		for (File archivo : archivos) {
+			System.out.println("archivo: "+archivo.getName());
 		}
 	}
 
