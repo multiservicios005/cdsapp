@@ -160,10 +160,10 @@ public class OrdenTrabajoPDF {
 			documento.open();
 //			Image img = Image.getInstance("src/main/resources/static/img/logo.jpg");
 //			getDir(System.getProperty("user.dir"));
-			getDir(System.getProperty("user.home"));
+//			getDir(System.getProperty("user.home"));
 //			Image img = Image.getInstance("/logo.jpg");
-//			Image img = Image.getInstance(System.getProperty("user.dir")+"/logo.jpg");
-			Image img = Image.getInstance(System.getProperty("user.home")+"/logo.jpg");
+			Image img = Image.getInstance(System.getProperty("user.dir")+"/logo.jpg");
+//			Image img = Image.getInstance(System.getProperty("user.home")+"/logo.jpg");
 //			Image img = Image.getInstance("http://cdsapp.onrender.com/logo.jpg");
 			img.scalePercent(40);
 			img.setAlignment(Element.ALIGN_CENTER);
