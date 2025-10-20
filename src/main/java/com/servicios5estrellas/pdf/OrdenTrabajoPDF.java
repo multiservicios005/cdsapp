@@ -186,14 +186,14 @@ public class OrdenTrabajoPDF {
 		agregarDatosDelcliente("Nombre:", cliente.getNombre());
 //		agregarSaltosDeLinea();
 //		agregarDatosDelcliente("Número de Celular: +569", "92504505");
-		agregarDatosDelcliente("Número de Celular: +569", cliente.getTelefono());
+		agregarDatosDelcliente("Número de Celular: +56", cliente.getTelefono());
 //		agregarSaltosDeLinea();
 //		agregarDatosDelcliente("Dirección del Trabajo:", "Gastón Hamel 255/B");
 		agregarDatosDelcliente("Dirección del Trabajo:", cliente.getDireccion());
 		agregarSaltosDeLinea();
 		agregarLineaConTexto("Lavado de Alfombras / Limpieza de Cubrepisos / Lavandería / Limpieza de Tapices");
 		agregarSaltosDeLinea();
-		agregarLineaConTexto("Descripción del servicio:-");
+		agregarLineaConTexto("Descripción del servicio");
 		agregarSaltosDeLinea();
 		
 		agregarServicios();
@@ -205,6 +205,10 @@ public class OrdenTrabajoPDF {
 		agregarNota("2.   El tiempo de entrega es estimado. La entrega se confirmará con el cliente.");
 		agregarNota("3.   Todo trabajo debe ser pagado contra entrega o transferencia previa.");
 		agregarNota("4.   El cliente debe asegurarse que haya alguien adulto para entregar o recibir.");
+		
+		agregarSaltosDeLinea();
+		agregarDatosContacto("Lavandería 5 Estrellas");
+		agregarDatosContacto("Celular/WhatsApp:  +569 9779 8674");
 		
 		documento.close();
 	}
@@ -326,6 +330,24 @@ public class OrdenTrabajoPDF {
 	public void agregarNota(String texto) {
 		Font fontNota = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12);
 		fontNota.setColor(BaseColor.RED);
+		PdfPTable tabla = new PdfPTable(1);
+		PdfPCell celda = new PdfPCell(new Phrase(texto, fontNota));
+		celda.setColspan(5);
+		celda.setBackgroundColor(BaseColor.WHITE);
+		celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+		celda.setBorder(PdfPCell.NO_BORDER);
+		tabla.addCell(celda);
+		try {
+			documento.add(tabla);
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void agregarDatosContacto(String texto) {
+		Font fontNota = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12);
+		fontNota.setColor(BaseColor.BLUE);
 		PdfPTable tabla = new PdfPTable(1);
 		PdfPCell celda = new PdfPCell(new Phrase(texto, fontNota));
 		celda.setColspan(5);

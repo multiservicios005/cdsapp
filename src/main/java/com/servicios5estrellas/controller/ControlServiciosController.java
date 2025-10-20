@@ -261,12 +261,15 @@ System.out.println("nro de tipos de servicios: "+repo.findAll().size());
 		System.out.println("ControlServiciosController.generarPdfOT ");
 		
 		int idOT = Integer.valueOf(req.getParameter("idOT"));
-		OrdenTrabajoPDF otPDF = new OrdenTrabajoPDF(repoOT.getReferenceById(idOT));
+		Orden_De_Trabajo ot = repoOT.getReferenceById(idOT);
+//		OrdenTrabajoPDF otPDF = new OrdenTrabajoPDF(repoOT.getReferenceById(idOT));
+		OrdenTrabajoPDF otPDF = new OrdenTrabajoPDF(ot);
 		
 		resp.setContentType("application/pdf");
 //		String filename = req.getParameter("filename");
 		
-		resp.setHeader("content-disposition", "attachment; filename=ordendetrabajo.pdf");
+//		resp.setHeader("content-disposition", "attachment; filename=ordendetrabajo.pdf");
+		resp.setHeader("content-disposition", "attachment; filename="+ot.getCliente().getNombre()+"_"+idOT+".pdf");
 		otPDF.descargarpdf(resp);
 		
 	}
