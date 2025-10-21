@@ -8,6 +8,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -298,11 +300,13 @@ public class OrdenTrabajoPDF {
 //			System.out.println("Servicio: "+ servicio);
 			tabla.addCell(servicio.getTipoServicio().getNombre());
 			tabla.addCell(servicio.getDetalleServicio());
-			tabla.addCell(servicio.getMonto().toString());
+//			tabla.addCell(servicio.getMonto().toString());
+			tabla.addCell("  "+format(servicio.getMonto()));
 		}
 		tabla.addCell("");
-		tabla.addCell("Valor Total $");
-		tabla.addCell(ot.getTotal().toString());
+		tabla.addCell("Valor Total:");
+//		tabla.addCell(ot.getTotal().toString());
+		tabla.addCell("$ "+format(ot.getTotal()));
 		
 		try {
 			documento.add(tabla);
@@ -314,9 +318,11 @@ public class OrdenTrabajoPDF {
 	}
 	
 	public void agregarFecha() {
+		DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		PdfPTable tabla = new PdfPTable(3);
 		tabla.addCell("Fecha:");
-		tabla.addCell(ot.getFecha().toString());
+//		tabla.addCell(ot.getFecha().toString());
+		tabla.addCell(ot.getFecha().format(formateador));
 		tabla.addCell("");
 		
 		try {
@@ -374,6 +380,13 @@ public class OrdenTrabajoPDF {
 		for (File archivo : archivos) {
 			System.out.println("archivo: "+archivo.getName());
 		}
+	}
+	
+	public String format(Integer valor) {
+//		String patron = "#,###.00";
+		String patron = "###,###";
+    	DecimalFormat formato = new DecimalFormat(patron);
+    	return formato.format(valor);
 	}
 
 }
