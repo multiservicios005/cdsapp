@@ -9,6 +9,7 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -382,11 +383,22 @@ public class OrdenTrabajoPDF {
 		}
 	}
 	
-	public String format(Integer valor) {
+	public String formatold(Integer valor) {
 //		String patron = "#,###.00";
 		String patron = "###,###";
     	DecimalFormat formato = new DecimalFormat(patron);
     	return formato.format(valor);
+	}
+	
+	public String format(double valor) {
+		DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+		simbolos.setDecimalSeparator(',');
+		simbolos.setGroupingSeparator('.');
+//		DecimalFormat formateador = new DecimalFormat("###,###,##0.00", simbolos);
+		DecimalFormat formateador = new DecimalFormat("###,###,##0", simbolos);
+//    	System.out.println("valor: "+valor+"  formateador.format(valor): "+formateador.format(valor));
+//    	Log.addLog(valor+"     "+formateador.format(valor));
+    	return formateador.format(valor);
 	}
 
 }
