@@ -383,21 +383,19 @@ public class OrdenTrabajoPDF {
 		}
 	}
 	
-	public String formatold(Integer valor) {
-//		String patron = "#,###.00";
-		String patron = "###,###";
-    	DecimalFormat formato = new DecimalFormat(patron);
-    	return formato.format(valor);
-	}
-	
-	public String format(double valor) {
+	/**
+	 * Método copiado desde la clase EvolucionCambioDTO del AFPMonitor.
+	 * El método se comporta bien aunque se defina el parámetro valor como
+	 * double y se le pase una valor Integer.
+	 * @param valor
+	 * @return
+	 */
+	public String format(Integer valor) {
 		DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
 		simbolos.setDecimalSeparator(',');
 		simbolos.setGroupingSeparator('.');
 //		DecimalFormat formateador = new DecimalFormat("###,###,##0.00", simbolos);
 		DecimalFormat formateador = new DecimalFormat("###,###,##0", simbolos);
-//    	System.out.println("valor: "+valor+"  formateador.format(valor): "+formateador.format(valor));
-//    	Log.addLog(valor+"     "+formateador.format(valor));
     	return formateador.format(valor);
 	}
 
