@@ -305,9 +305,13 @@ public class OrdenTrabajoPDF {
 			tabla.addCell("  "+format(servicio.getMonto()));
 		}
 		tabla.addCell("");
-		tabla.addCell("Valor Total:");
+		tabla.addCell("Valor Neto:");
 //		tabla.addCell(ot.getTotal().toString());
 		tabla.addCell("$ "+format(ot.getTotal()));
+		
+		tabla.addCell("");
+		tabla.addCell("Valor Total:");
+		tabla.addCell("$ "+format(ot.getTotal()*1.19));
 		
 		try {
 			documento.add(tabla);
@@ -390,7 +394,7 @@ public class OrdenTrabajoPDF {
 	 * @param valor
 	 * @return
 	 */
-	public String format(Integer valor) {
+	public String format(double valor) {
 		DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
 		simbolos.setDecimalSeparator(',');
 		simbolos.setGroupingSeparator('.');
