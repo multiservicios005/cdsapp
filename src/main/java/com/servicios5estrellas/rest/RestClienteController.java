@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.servicios5estrellas.cliente.services.ClienteServices;
 import com.servicios5estrellas.model.Cliente;
 import com.servicios5estrellas.model.Orden_De_Trabajo;
 import com.servicios5estrellas.model.ServicioOT;
@@ -37,6 +38,9 @@ public class RestClienteController {
 	@Autowired
 	private ITipoServicioRepository tipoServicioRepo;
 	
+	@Autowired
+	private ClienteServices clienteServices;
+	
 	@GetMapping
 	public List<Cliente> listar() {
 //		for (Cliente cli: clienteRepo.findAll()) {
@@ -56,6 +60,10 @@ public class RestClienteController {
 	
 	@PostMapping
 	public void insertar(@RequestBody Cliente cli) {
+		clienteServices.insertar(cli);
+	}
+	
+	public void insertarOld(@RequestBody Cliente cli) {
 		int nextServicioId = servicioRepo.getNextId();
 		int nextIdOT = otRepo.getNextId();
 		cli.setIdCliente(clienteRepo.getNextId());
