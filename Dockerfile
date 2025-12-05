@@ -7,7 +7,8 @@ RUN mvn -e -B package
 
 
 #FROM openjdk:8-jdk-alpine
-FROM openjdk:17-alpine
+#FROM openjdk:17-alpine
+FROM eclipse-temurin:21
 EXPOSE 8080
 #COPY usuarios.json .
 COPY logo.jpg .
