@@ -18,7 +18,7 @@ public class Cliente {
 	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="CLIENT_GEN")
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CLIENTE_ID")
 	private int idCliente;
 	

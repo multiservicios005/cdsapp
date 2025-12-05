@@ -23,7 +23,7 @@ public class Orden_De_Trabajo {
 	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="OT_GEN")
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "OT_ID")
 	private int idOT;
 	
