@@ -37,5 +37,15 @@ public class SequenceDao {
 		query = em.createNativeQuery("CREATE SEQUENCE public.servi_gen2 START 1");
 		query.executeUpdate();
 	}
+	
+	@Transactional
+	public void reStartPK() {
+		Query query = em.createNativeQuery("ALTER TABLE IF EXISTS public.cliente ALTER COLUMN cliente_id RESTART SET START 902");
+		query.executeUpdate();
+		query = em.createNativeQuery("ALTER TABLE IF EXISTS public.orden_de_trabajo ALTER COLUMN ot_id RESTART SET START 1001");
+		query.executeUpdate();
+		query = em.createNativeQuery("ALTER TABLE IF EXISTS public.servicios_ot ALTER COLUMN servicio_ot_id RESTART SET START 1168");
+		query.executeUpdate();
+	}
 
 }

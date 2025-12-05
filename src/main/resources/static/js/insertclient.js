@@ -336,10 +336,19 @@ function controladorPrincipal($scope, $http){
 //		alert("cliente json: "+myJSON);
 //		$http.post("/clientes", myJSON)		
 //		$http.post("/clientes", vm.fdatos)
+		console.log(vm.cliente);
 		$http.post("/clientes", vm.cliente)
 			.then(function(res){
-				console.log(res);
+				console.log("idCliente"+res.data.idCliente);
+//				vm.cliente=JSON.stringify(res.data);
+				vm.cliente.idCliente=res.data.idCliente;
 				//por supuesto podrás volcar la respuesta al modelo con algo como vm.res = res;
+				if(res.data.ordenes_de_trabajo.length > 0){
+					console.log("idOT = "+res.data.ordenes_de_trabajo[0].idOT);
+					document.getElementById("idOT").value = res.data.ordenes_de_trabajo[0].idOT;
+					console.log("idOT hidden = "+document.getElementById("idOT").value);
+					document.getElementById("genOT").submit();					
+				}
 				});
 		alert("El cliente ha sido registrado exitosamente.");
 		}
@@ -387,4 +396,21 @@ function controladorPrincipal($scope, $http){
 				//por supuesto podrás volcar la respuesta al modelo con algo como vm.res = res;
 				});
 		}
+	
+	vm.generarOT = function(){
+		alert("generarOT  ");
+		$http.post("/generarPdfOT")
+			.then(function(res){
+				console.log("idCliente"+res.data.idCliente);
+//				vm.cliente=JSON.stringify(res.data);
+				vm.cliente.idCliente=res.data.idCliente;
+				//por supuesto podrás volcar la respuesta al modelo con algo como vm.res = res;
+				document.getElementById("idOT").value = res.data.ordenes_de_trabajo[0].idOT;
+				console.log("idOT = "+res.data.ordenes_de_trabajo[0].idOT);
+				console.log("idOT = "+document.getElementById("idOT").value);
+				console.log("idOT hidden = "+document.getElementById("idOT").value);
+				});
+			alert("La OT se ha generado exitosamente.");
+		}
+		
 }

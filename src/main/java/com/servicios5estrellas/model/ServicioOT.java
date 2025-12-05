@@ -19,6 +19,7 @@ public class ServicioOT {
 	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SERVI_GEN")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SERVICIO_OT_ID")
 	private int idServicioOT;
 	

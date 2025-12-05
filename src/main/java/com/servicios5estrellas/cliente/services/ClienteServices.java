@@ -61,12 +61,12 @@ public class ClienteServices {
 		
 		int nextServicioId = servicioRepo.getNextId();
 		int nextIdOT = otRepo.getNextId();
-		cli.setIdCliente(clienteRepo.getNextId());
+//		cli.setIdCliente(clienteRepo.getNextId());
 		System.out.println("cliente: "+cli);
 		
 		for (Orden_De_Trabajo ot : cli.getOrdenes_de_trabajo()) {
 			ot.setCliente(cli);
-			ot.setIdOT(nextIdOT);
+//			###ot.setIdOT(nextIdOT);
 			System.out.println("*****   ot:  *********");
 //			System.out.println("*****   ot: "+ot.toString()+" *********");
 			System.out.println("*****   ot: "+ot.getObservacion()+" *********");
@@ -76,7 +76,7 @@ public class ClienteServices {
 				s.setOt(ot);
 				System.out.println("*****   s.getTipoServicio().getIdServicio():  "+s.getTipoServicio().getIdServicio());
 				s.setTipoServicio(tipoServicioRepo.findById(s.getTipoServicio().getIdServicio()).get());
-				s.setIdServicioOT(nextServicioId);
+//				###s.setIdServicioOT(nextServicioId);
 				nextServicioId = nextServicioId + 1;
 			}
 		}

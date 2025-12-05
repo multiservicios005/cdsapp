@@ -59,8 +59,8 @@ public class RestClienteController {
 	}
 	
 	@PostMapping
-	public void insertar(@RequestBody Cliente cli) {
-		clienteServices.insertar(cli);
+	public Cliente insertar(@RequestBody Cliente cli) {
+		return clienteServices.insertar(cli);
 	}
 	
 	public void insertarOld(@RequestBody Cliente cli) {

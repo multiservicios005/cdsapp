@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- insertclient.html -->
+
+<head>
+  <meta charset="utf-8">
+  <title>Crear un Cliente</title>
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+  
+<script>
+// 	document.getElementById("celdaId").addEventListener("focusout", test9, true);
+	
+	function test9(){
+// 		alert("hola");
+// 		document.form1.
+	}
+</script>
+
+</head>
+<body>
+<!-- 	Barra de Menú -->
+	<div>
+		<a href="/">Inicio</a>&nbsp;
+		<a href="/help">Ayuda</a>&nbsp;
+		<a href="/about">About</a>&nbsp;
+	</div>
+	
+<!--<div ng-app="app" ng-controller="appCtrl as vm">-->
+<div>
+	<h1>Crear un Cliente</h1>
+
+	<section>
+		<!--<form ng-submit="vm.insertclient()">-->
+		<form action="/savenewclient"  method="POST">
+		
+			Nombre: <input type="text" ng-model="vm.cliente.nombre" placeholder="Ingrese el Nombre">
+			<br>
+			<br>
+			Teléfono: <input type="text" ng-model="vm.cliente.telefono" placeholder="912345678">
+			<br>
+			<br>
+<!-- 			Fecha 2: <input type="date" id="myDate" value="2014-02-09"> -->
+			<!--Fecha: <input type="date" ng-model="vm.cliente.fecha">-->
+			Fecha: <input type="date" name="fecha">
+<!-- 			Fecha: <input type="text" ng-model="vm.cliente.fecha" placeholder="2019-10-22"> -->
+			<br>
+			<br>
+			Dirección: <input type="text" ng-model="vm.cliente.direccion" placeholder="Ingrese la Dirección">
+			<br>
+			<br>
+			<label for="mySelect">Comuna:</label>
+	    	<select name="mySelect" id="mySelect"
+	      		ng-options="option.nombre for option in comunas.availableOptions track by option.idComuna"
+ 	      		ng-model="comunas.selectedOption"></select>
+<!-- 			<br><br><tt>option = {{comunas.selectedOption}}</tt><br/><br> -->
+			<br>
+			<br>
+<!-- 			Observación: <input type="text" ng-model="vm.fdatos.observacion"> -->
+			Observación: <input type="text" ng-model="vm.cliente.observacion">
+			<br>
+			<br>
+			<div>
+			<input type="submit" value="Grabar">
+<!-- 			<input type="button" value="Crear Cliente" onClick="test()"> -->
+				<input type="button" value="Crear Cliente" onClick="save()">
+				<input type="button" id="addOT" value="Agregar OT" ng-click="vm.addOT()" ng-disabled="vm.deshabilitar" title="Agregar una Orden de Trabajo para este cliente">
+				<input type="button" value="Agregar Servicio a la OT" ng-click="vm.addService()" title="Agregar un servicio a la Orden de Trabajo">
+<!-- 				<input type="button" value="Test" ng-click="vm.test4()" title="Botón usado para realizar pruebas"> -->
+				<!--<button id="addServiceButton">Add Service</button>-->
+				<input type="button" id="addServiceButton" value="Add Service">
+			</div>
+			
+			<br>
+			<br>
+			
+			<div ng-if="vm.cliente.ordenes_de_trabajo.length == 0">
+			
+			<br>
+			<br>
+			
+			<h1>Lista de Servicios de la Orden de Trabajo</h1>
+		    
+<!-- 		tabla de Orden de Trabajo -->
+			<table>
+	            <tr>
+<!-- 	                <th>Id Orden de Trabajo</th> -->
+	                <th>Total OT</th>
+	                <th>Fecha</th>
+	                <th>Observación</th>
+	                <th>Servicios</th>
+	            </tr>
+				<tbody ng-repeat="ot in vm.cliente.ordenes_de_trabajo" >
+		    		<tr>
+<!-- 		    			<td>{{ ot.idOT }}</td>		    			 -->
+<!-- 		    			<td>{{ ot.total }}</td> -->
+		    			<td><input type="text" ng-model="ot.total" readonly></td>
+<!-- 		    			<td contenteditable>{{ ot.fecha }}</td> -->
+<!-- 		    			<td contenteditable><input type="date" ng-model="ot.fecha" value="{{ ot.fecha }}"></td> -->
+<!-- 		    			<td contenteditable><input type="date" ng-model="ot.fecha" value={{ ot.fecha }}></td> -->
+		    			<td contenteditable><input type="date" ng-model="ot.fecha"></td>
+		    			<td contenteditable><input type="text" ng-model="ot.observacion"></td>
+		    			<td>Servicios
+<!-- 			    			<table id="tableSer"> -->
+		    			
+		    			</td>
+		    		</tr>
+		        </tbody>
+		    </table>
+			<br>
+			
+<!-- 		Servicios de la OT -->
+			<table  id="servicios">
+				<tr>
+<!-- 					                <th>Id Servicio</th> -->
+					<th>ID Tipo De Servicio</th>
+<!-- 					                <th>Nombre Tipo De Servicio</th> -->
+					<th>Detalle del Servicio</th>
+					<th>Monto</th>
+				</tr>
+				<tbody ng-repeat="servicio in ot.servicios" >
+<!--					<tr>
+						<td contenteditable><select id="tipoServicios" name="tipoServicios">
+								<option value="1" ng-selected="{{ servicio.tipoServicio.idServicio == 1 }}">Lavado de Alfombras Muro a Muro</option>
+								<option value="2" ng-selected="{{ servicio.tipoServicio.idServicio == 2 }}" selected>Lavado de Alfombras Sueltas</option>
+								<option value="3" ng-selected="{{ servicio.tipoServicio.idServicio == 3 }}">Limpieza de Piso Flotante</option>
+								<option value="4" ng-selected="{{ servicio.tipoServicio.idServicio == 4 }}">Limpieza de Tapices de Muebles</option>
+								<option value="5" ng-selected="{{ servicio.tipoServicio.idServicio == 5 }}">Limpieza de Tapices de Automóviles</option>
+								<option value="6" ng-selected="{{ servicio.tipoServicio.idServicio == 6 }}">Lavandería Con Retiro a Domicilio</option>
+								<option value="7" ng-selected="{{ servicio.tipoServicio.idServicio == 7 }}">Limpieza de Colchones</option>
+							</select></td>	
+							
+						<td><input type="text" ng-model="servicio.detalleServicio"></td>
+						<td><input type="text" ng-model="servicio.monto" ng-change="vm.updteTotalOT()"></td>
+					</tr>-->
+				</tbody>
+			</table>
+
+
+		    </div>
+		</form>
+	</section>
+</div>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>-->
+<!--<script type="text/javascript" src="/js/insertclient.js"></script>-->
+<script type="text/javascript" src="/js/insertclient2.js"></script>
+
+<script>
+
+/**
+Este método usa la api fetch para invocar el servicio REST /clientes 
+para insertar en la base de datos un nuevo cliente y que retorna el 
+objeto cliente desde la base de datos con los respectivos id para el
+cliente, la Orden de Trabajo y los respectivos servicios en caso que
+se haya creado la OT.
+El objeto cliente retornado se guarda en la variable cliente. 
+**/
+function save(){
+  var cliente = { nombre: "Test6", telefono: "981867141", direccion: "dire", comuna: "Viña del Mar", observacion: "Maitencillo", fecha: "2025-11-14" };
+  //var cliente2;
+  
+  	//console.log('Datos enviados:', cliente)
+  	//console.log('Json enviados', JSON.stringify(cliente))
+  
+	fetch('/clientes', {
+	    method: 'POST',
+	    headers: {
+	        "Content-Type": "application/json",
+	    },
+	    //body: JSON.stringify({ nombre: "Test2", telefono: "981867141", direccion: "dire", observacion: "Maitencillo" })
+	    body: JSON.stringify(cliente)
+	})
+	.then(response => response.json())
+	.then(data => {
+		cliente=data; 
+		console.log(' cliente2:', cliente); 
+		console.log(' cliente:', data);  //data trae el objeto Cliente retornado por el servicio REST /clientes
+	})
+	.then(response => {
+		  //parece que este then está demás ya que response es undefined
+	      console.log("problemas ...  "+response)
+	})
+	.catch(error => console.error('Error: ', error));
+}
+
+</script>
+ 
+</body>
+</html>

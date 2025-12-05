@@ -2,6 +2,8 @@ package com.servicios5estrellas.cliente.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,7 +49,34 @@ public class ClienteController {
 		cliente.setComuna(req.getParameter("comuna"));
 		cliente.setFecha(LocalDate.now());
 		cliente.setObservacion(req.getParameter("observación"));
-		cliente = clienteservices.saveClient(cliente);
+		
+		System.out.println("tipoServicios: "+req.getParameter("tipoServicios"));
+		System.out.println("detalle: "+req.getParameter("detalle"));
+//		System.out.println("tipoServicios attr: "+req.getAttribute("tipoServicios"));
+//		System.out.println("getAttributeNames: "+req.getAttributeNames());
+		System.out.println("getParameterMap: "+req.getParameterMap());
+		System.out.println("getParameterValues: "+req.getParameterValues("detalle"));
+		
+		for (String valor : req.getParameterValues("detalle")) {
+			System.out.println("valor detalle: "+valor);
+		}
+		
+		String[] detalles = req.getParameterValues("detalle");
+		for (String detalle : detalles) {
+			System.out.println("detalle: "+detalle);
+		}
+		
+		for (Map.Entry<String, String[]> entry : req.getParameterMap().entrySet()) {
+			String key = entry.getKey();
+			String[] val = entry.getValue();
+			System.out.println("key: "+key+" value: "+val.length);
+			
+			for (String value : val) {
+				System.out.println("value: "+value);
+			}
+		}
+		
+//		cliente = clienteservices.saveClient(cliente);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		try {
