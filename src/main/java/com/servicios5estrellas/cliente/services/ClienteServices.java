@@ -63,6 +63,7 @@ public class ClienteServices {
 		int nextIdOT = otRepo.getNextId();
 //		cli.setIdCliente(clienteRepo.getNextId());
 		System.out.println("cliente: "+cli);
+		Orden_De_Trabajo otEliminar = null;
 		
 		for (Orden_De_Trabajo ot : cli.getOrdenes_de_trabajo()) {
 			ot.setCliente(cli);
@@ -79,7 +80,13 @@ public class ClienteServices {
 //				###s.setIdServicioOT(nextServicioId);
 				nextServicioId = nextServicioId + 1;
 			}
+			//Remover la OT de la lista de OTs del cliente si el total de esta OT es cero
+			if(ot.getTotal() == 0) {
+//				cli.getOrdenes_de_trabajo().remove(ot);
+				otEliminar = ot;
+			}
 		}
+		cli.getOrdenes_de_trabajo().remove(otEliminar);
 //		new Test().save(cli);;
 		return clienteRepo.save(cli);
 	}

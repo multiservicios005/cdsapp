@@ -15,6 +15,10 @@ function controladorPrincipal($scope, $http){
 //	vm.cliente = cli;
 	vm.deshabilitar = false;
 	vm.cliente.ordenes_de_trabajo = [];
+	//vm.cliente.ordenes_de_trabajo.push({total:0, fecha:new Date(), observacion:"", servicios:[]});
+	//vm.cliente.ordenes_de_trabajo.push({total:0, fecha:new Date(), observacion:"", servicios:[{tipoServicio:{idServicio: 2, nombre: "Lavado de Alfombras Sueltas"}, detalleServicio:"Living de 5x5", monto:46000}]});
+	vm.cliente.ordenes_de_trabajo.push({total:0, fecha:new Date(), observacion:"", servicios:[{tipoServicio:{idServicio: 2, nombre: "Lavado de Alfombras Sueltas"}, detalleServicio:"", monto:null}]});
+//	console.log("length OTs: "+vm.cliente.ordenes_de_trabajo.length);
 	vm.cliente.comuna = "Viña del Mar";
 	vm.cliente.fecha = new Date(); 
 	
@@ -159,7 +163,8 @@ function controladorPrincipal($scope, $http){
 //		alert("Servicios de la OT"+vm.cliente.ordenes_de_trabajo.servicios);
 //		alert("Servicios de la OT"+vm.cliente.ordenes_de_trabajo[0].servicios);
 //		vm.cliente.ordenes_de_trabajo[0].servicios.push({"tipoServicio":{"idServicio": 2, "nombre": "Lavado de Alfombras Sueltas"}, "detalleServicio":"Living de 5x3", "monto":78000});
-		vm.cliente.ordenes_de_trabajo[0].servicios.push({tipoServicio:{idServicio: 2, nombre: "Lavado de Alfombras Sueltas"}, detalleServicio:"Living de 5x3", monto:0});
+//		vm.cliente.ordenes_de_trabajo[0].servicios.push({tipoServicio:{idServicio: 2, nombre: "Lavado de Alfombras Sueltas"}, detalleServicio:"Living de 5x3", monto:0});
+		vm.cliente.ordenes_de_trabajo[0].servicios.push({tipoServicio:{idServicio: 2, nombre: "Lavado de Alfombras Sueltas"}, detalleServicio:"", monto:null});
 	}
 	
 //	método cuasi repetido en getclient.js
@@ -343,7 +348,10 @@ function controladorPrincipal($scope, $http){
 //				vm.cliente=JSON.stringify(res.data);
 				vm.cliente.idCliente=res.data.idCliente;
 				//por supuesto podrás volcar la respuesta al modelo con algo como vm.res = res;
-				if(res.data.ordenes_de_trabajo.length > 0){
+				console.log("monto"+res.data.ordenes_de_trabajo[0].total);
+				//Descargar el pdf con la OT solo si se ha llenado  una OT con los datos.
+				//if(res.data.ordenes_de_trabajo.length > 0){
+				if(res.data.ordenes_de_trabajo[0].total > 0){
 					console.log("idOT = "+res.data.ordenes_de_trabajo[0].idOT);
 					document.getElementById("idOT").value = res.data.ordenes_de_trabajo[0].idOT;
 					console.log("idOT hidden = "+document.getElementById("idOT").value);

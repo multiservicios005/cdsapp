@@ -67,7 +67,8 @@ public class ControlServiciosController {
 	@RequestMapping("/test")
 	public String test() {
 		System.out.println("llamando a la página test.html ");
-		return "test";
+		return "insertclient2";
+//		return "test";
 	}
 	
 	@RequestMapping("/about")

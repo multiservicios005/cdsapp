@@ -51,21 +51,21 @@
 			<br>
 			<br>
 			
-			Nombre: <input type="text" ng-model="vm.cliente.nombre" placeholder="Ingrese el Nombre">
+			Nombre: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="vm.cliente.nombre" placeholder="Ingrese el Nombre">
 			<br>
 			<br>
-			Teléfono: <input type="text" ng-model="vm.cliente.telefono" placeholder="912345678">
+			Teléfono: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="vm.cliente.telefono" placeholder="912345678">
 			<br>
 			<br>
 <!-- 			Fecha 2: <input type="date" id="myDate" value="2014-02-09"> -->
-			Fecha: <input type="date" ng-model="vm.cliente.fecha">
+			Fecha: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" ng-model="vm.cliente.fecha">
 <!-- 			Fecha: <input type="text" ng-model="vm.cliente.fecha" placeholder="2019-10-22"> -->
 			<br>
 			<br>
-			Dirección: <input type="text" ng-model="vm.cliente.direccion" placeholder="Ingrese la Dirección">
+			Dirección: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="vm.cliente.direccion" placeholder="Ingrese la Dirección">
 			<br>
 			<br>
-			<label for="mySelect">Comuna:</label>
+			<label for="mySelect">Comuna:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 	    	<select name="mySelect" id="mySelect"
 	      		ng-options="option.nombre for option in comunas.availableOptions track by option.idComuna"
  	      		ng-model="comunas.selectedOption"></select>
@@ -85,6 +85,7 @@
 				<input type="button" value="Agregar Servicio a la OT" ng-click="vm.addService()" title="Agregar un servicio a la Orden de Trabajo">
 				<!--<input type="button" value="Generar OT" ng-click="vm.generarOT()" title="Generar la Orden de Trabajo">-->
 <!-- 				<input type="button" value="Test" ng-click="vm.test4()" title="Botón usado para realizar pruebas"> -->
+				<input type="button" id="addServiceButton" value="Add Service" title="Agregar un servicio a la Orden de Trabajo - New">
 			</div>
 			
 			<br>

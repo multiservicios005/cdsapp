@@ -16,7 +16,7 @@
   });
   **/
   
-  addService();
+  //addService();
 
 /**  
   addOT.addEventListener('click', function() {
@@ -57,6 +57,7 @@
 	const detalle = document.createElement('input');
 	detalle.type = 'text';
 	detalle.name = "detalle";
+	//detalle.value = "detalle";
 	//detalle.id = 'miTexto';
 	celda2.appendChild(detalle);
 	
@@ -113,7 +114,9 @@
 	  optionElement.value = opcionData.idServicio; // Establece el valor del atributo 'value'
 	  optionElement.textContent = opcionData.nombre; // Establece el texto visible
 	  //console.log("optionElement.selected: "+optionElement.selected)
+	  console.log("opcionData.idServicio: "+opcionData.idServicio)
 	  if(opcionData.idServicio == 2){
+		console.log("opcionData.idServicio 2: "+opcionData.idServicio)
 		optionElement.selected = true
 	  }
 	  
