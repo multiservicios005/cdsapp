@@ -114,9 +114,9 @@ public class RestClienteController {
 		for (Orden_De_Trabajo ot : cli.getOrdenes_de_trabajo()) {
 			ot.setCliente(cli);
 			System.out.println("####   ot.IdOT: "+ot.getIdOT()+" ####");
-			if(ot.getIdOT()==0) {
-				ot.setIdOT(otRepo.getNextId());
-			}
+//			if(ot.getIdOT()==0) {
+//#				ot.setIdOT(otRepo.getNextId());
+//			}
 			System.out.println("*****   ot:  *********");
 //			System.out.println("*****   ot: "+ot.toString()+" *********");
 			System.out.println("*****   ot: "+ot.getObservacion()+" *********");
@@ -125,10 +125,10 @@ public class RestClienteController {
 			for(ServicioOT s : ot.getServicios()) {
 				s.setOt(ot);
 				System.out.println("####   s.getIdServicioOT(): "+s.getIdServicioOT()+" ####");
-				if(s.getIdServicioOT()==0) {
-					s.setIdServicioOT(nextIdServicioOT);
-					nextIdServicioOT = nextIdServicioOT +1;
-				}
+//				if(s.getIdServicioOT()==0) {
+//#					s.setIdServicioOT(nextIdServicioOT);
+//					nextIdServicioOT = nextIdServicioOT +1;
+//				}
 			}
 		}
 		clienteRepo.save(cli);
