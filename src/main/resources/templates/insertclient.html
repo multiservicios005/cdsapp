@@ -10,10 +10,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <title>Crear un Cliente</title>
   <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
-
-    <!-- Bootstrap core CSS -->
-<!--<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">-->
-	<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
   
 <script>
 // 	document.getElementById("celdaId").addEventListener("focusout", test9, true);
@@ -35,79 +31,106 @@
 	</div>-->
 	
 <div ng-app="app" ng-controller="appCtrl as vm">
-	<h1>Crear un Cliente</h1>
+  <div class="container">
+	<h2>Datos del Cliente</h2>
 
 	<section>
 		<form ng-submit="vm.insertclient()">
-		
-<!-- 	    <label for="mySelect">Make a choice:</label> -->
-<!-- 	    <select name="mySelect" id="mySelect" -->
-<!-- 	      ng-options="option.nombre for option in data.availableOptions track by option.idServicio" -->
-<!-- 	      ng-model="data.selectedOption"></select> -->
-	      
-<!-- 	      <br><br><tt>option = {{data.selectedOption}}</tt><br/><br> -->
-
-			Id Cliente: <input type="text" ng-model="vm.cliente.idCliente" disabled>
-			<br>
-			<br>
+		<!--<form action="/savenewclient"  method="POST">-->
+			<div class="row mb-3">
+				<label class="col-2 col-form-label" for="nombreId">Nombre:</label>
+				<div class="col-10">
+					<input type="text" class="form-control" id="nombreId" ng-model="vm.cliente.nombre" placeholder="Ingrese el Nombre">
+				</div>
+			</div>
 			
-			Nombre: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="vm.cliente.nombre" placeholder="Ingrese el Nombre">
+			<div class="row mb-3">
+				<label class="col-2 col-form-label" for="telefonoId">Teléfono:</label>
+				<div class="col-10">
+					<input type="text" class="form-control" id="telefonoId" ng-model="vm.cliente.telefono" placeholder="912345678">
+				</div>
+			</div>
+			
+			<div class="row mb-3">
+				<label class="col-2 col-form-label" for="fechaId">Fecha:</label>
+				<div class="col-10">
+					<input type="date" class="form-control" id="fechaId" ng-model="vm.cliente.fecha">
+				</div>
+			</div>
+			
+			<div class="row mb-3">
+				<label class="col-2 col-form-label" for="direccionId">Dirección:</label>
+				<div class="col-10">
+					<input type="text" class="form-control" id="direccionId" ng-model="vm.cliente.direccion" placeholder="Ingrese la Dirección">
+				</div>
+			</div>
+			
+			<div class="row mb-3">
+				<label class="col-2 col-form-label" for="mySelect">Comuna:</label>
+				<div class="col-10">
+			    	<select class="form-select" name="mySelect" id="mySelect"
+			      		ng-options="option.nombre for option in comunas.availableOptions track by option.idComuna"
+		 	      		ng-model="comunas.selectedOption"></select>
+				</div>
+			</div>
+			
+			<div class="row mb-3">
+				<label class="col-2 col-form-label" for="observacionId">Observación:</label>
+				<div class="col-10">
+					<input type="text" class="form-control" id="observacionId" ng-model="vm.cliente.observacion">
+				</div>
+			</div>
+			
+			<!--Nombre: <input type="text" class="form-control" id="nombreId" ng-model="vm.cliente.nombre" placeholder="Ingrese el Nombre">
 			<br>
 			<br>
-			Teléfono: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="vm.cliente.telefono" placeholder="912345678">
+			Teléfono: <input type="text" ng-model="vm.cliente.telefono" placeholder="912345678">
 			<br>
 			<br>
-<!-- 			Fecha 2: <input type="date" id="myDate" value="2014-02-09"> -->
-			Fecha: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" ng-model="vm.cliente.fecha">
-<!-- 			Fecha: <input type="text" ng-model="vm.cliente.fecha" placeholder="2019-10-22"> -->
+			Fecha: <input type="date" ng-model="vm.cliente.fecha">
 			<br>
 			<br>
-			Dirección: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" ng-model="vm.cliente.direccion" placeholder="Ingrese la Dirección">
+			Dirección: <input type="text" ng-model="vm.cliente.direccion" placeholder="Ingrese la Dirección">
 			<br>
 			<br>
-			<label for="mySelect">Comuna:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+			<label for="mySelect">Comuna:</label>
 	    	<select name="mySelect" id="mySelect"
 	      		ng-options="option.nombre for option in comunas.availableOptions track by option.idComuna"
  	      		ng-model="comunas.selectedOption"></select>
-<!-- 			<br><br><tt>option = {{comunas.selectedOption}}</tt><br/><br> -->
 			<br>
 			<br>
-<!-- 			Observación: <input type="text" ng-model="vm.fdatos.observacion"> -->
 			Observación: <input type="text" ng-model="vm.cliente.observacion">
 			<br>
-			<br>
+			<br>-->
 			<div>
 			<input type="submit" value="Grabar">
 <!-- 			<input type="button" value="Crear Cliente" onClick="test()"> -->
-				<!-- La siguiente línea implementa la creación de un cliente con la función Fetch -->
 				<!--<input type="button" value="Crear Cliente" onClick="save()">-->
-				<input type="button" id="addOT" value="Agregar OT" ng-click="vm.addOT()" ng-disabled="vm.deshabilitar" title="Agregar una Orden de Trabajo para este cliente">
+				<!--<input type="button" id="addOT" value="Agregar OT" ng-click="vm.addOT()" ng-disabled="vm.deshabilitar" title="Agregar una Orden de Trabajo para este cliente">-->
 				<input type="button" value="Agregar Servicio a la OT" ng-click="vm.addService()" title="Agregar un servicio a la Orden de Trabajo">
-				<!--<input type="button" value="Generar OT" ng-click="vm.generarOT()" title="Generar la Orden de Trabajo">-->
 <!-- 				<input type="button" value="Test" ng-click="vm.test4()" title="Botón usado para realizar pruebas"> -->
-				<input type="button" id="addServiceButton" value="Add Service" title="Agregar un servicio a la Orden de Trabajo - New">
+				<!--<button id="addServiceButton">Add Service</button>-->
+				<!--<input type="button" id="addServiceButton" value="Add Service">-->
 			</div>
-			
-			<br>
-			<br>
 			
 			<div ng-if="vm.cliente.ordenes_de_trabajo.length > 0">
 			
 			<br>
 			<br>
 			
-			<h1>Lista de Servicios de la Orden de Trabajo</h1>
+			<h2>Datos de la Orden de Trabajo</h2>
 		    
-<!-- 			<table id="myTable"> -->
+<!-- 		tabla de Orden de Trabajo -->
 			<table>
 	            <tr>
 <!-- 	                <th>Id Orden de Trabajo</th> -->
-	                <th>Total</th>
+	                <th>Total OT</th>
 	                <th>Fecha</th>
 	                <th>Observación</th>
-	                <th>Servicios</th>
+	                <!--<th>Servicios</th>-->
 	            </tr>
 				<tbody ng-repeat="ot in vm.cliente.ordenes_de_trabajo" >
+				<!--<tbody>-->
 		    		<tr>
 <!-- 		    			<td>{{ ot.idOT }}</td>		    			 -->
 <!-- 		    			<td>{{ ot.total }}</td> -->
@@ -115,71 +138,56 @@
 <!-- 		    			<td contenteditable>{{ ot.fecha }}</td> -->
 <!-- 		    			<td contenteditable><input type="date" ng-model="ot.fecha" value="{{ ot.fecha }}"></td> -->
 <!-- 		    			<td contenteditable><input type="date" ng-model="ot.fecha" value={{ ot.fecha }}></td> -->
-		    			<td contenteditable><input type="date" ng-model="ot.fecha"></td>
-		    			<td contenteditable><input type="text" ng-model="ot.observacion"></td>
-		    			<td>
-<!-- 			    			<table id="tableSer"> -->
-			    			<table>
-					            <tr>
-<!-- 					                <th>Id Servicio</th> -->
-					                <th>ID Tipo De Servicio</th>
-<!-- 					                <th>Nombre Tipo De Servicio</th> -->
-					                <th>Detalle del Servicio</th>
-					                <th>Monto</th>
-					            </tr>
-			    				<tbody ng-repeat="servicio in ot.servicios" >
-			    					<tr>
-<!-- 			    						<td>{{ servicio.idServicioOT }}</td> -->
-<!-- 										esquema transitorio para indocar el Tipo de Servicio que debe ser reemplazado por el uso de un combobox -->
-<!-- 			    						<td contenteditable>{{ servicio.tipoServicio.idServicio }}</td> -->
-<!-- 			    						<td contenteditable>{{ servicio.tipoServicio.nombre }}</td> -->
-
-<!-- 			    						<td contenteditable><select> -->
-<!-- 												<option value="1" ng-selected="{{ servicio.tipoServicio.idServicio == 1 }}">Lavado de Alfombras Muro a Muro</option> -->
-<!-- 												<option value="2" ng-selected="{{ servicio.tipoServicio.idServicio == 2 }}">Lavado de Alfombras Sueltas</option> -->
-<!-- 												<option value="3" ng-selected="{{ servicio.tipoServicio.idServicio == 3 }}">Limpieza de Piso Flotante</option> -->
-<!-- 												<option value="4" ng-selected="{{ servicio.tipoServicio.idServicio == 4 }}">Limpieza de Tapices de Muebles</option> -->
-<!-- 												<option value="5" ng-selected="{{ servicio.tipoServicio.idServicio == 5 }}">Limpieza de Tapices de Automóviles</option> -->
-<!-- 												<option value="6" ng-selected="{{ servicio.tipoServicio.idServicio == 6 }}">Lavandería Con Retiro a Domicilio</option> -->
-<!-- 												<option value="7" ng-selected="{{ servicio.tipoServicio.idServicio == 7 }}">Limpieza de Colchones</option> -->
-<!-- 												<option value="10" ng-selected="{{ servicio.tipoServicio.idServicio == 10 }}">Otro Servicio</option> -->
-<!--  											</select></td>	 -->
- 											
-<!--  											<td contenteditable> -->
-<!--  												<select name="mySelect2" id="mySelect2" -->
-<!-- 	      												ng-options="option.nombre for option in data.availableOptions track by option.idServicio" -->
-<!-- 											 	        ng-model="servicio.tipoServicio.idServicio"> -->
-<!-- 											 	        	<option ng-selected="{{ servicio.tipoServicio.idServicio == option.idServicio }}">{{option.nombre}}</option> -->
-<!-- 											 	 </select> -->
-<!--  											</td> -->
- 											
- 											<td>
- 												<select name="mySelect" id="mySelect"
-	      												ng-options="option.nombre for option in data.availableOptions track by option.idServicio"
- 	     												 ng-model="servicio.tipoServicio"></select>
- 											</td>
- 											
-<!--  											<td contenteditable> -->
-<!--  												<select ng-model="cliente.defaultvalue" ng-options="option.value as option.display for option in options"> -->
-<!-- 										            <option ng-selected="cliente.defaultvalue == option.value" >{{option.display}}</option> -->
-<!-- 										        </select> -->
-<!--  											</td> -->
- 											
-<!-- 			    						<td contenteditable>{{ servicio.detalleServicio }}</td> -->
-			    						<td><input type="text" ng-model="servicio.detalleServicio"></td>
-<!-- 			    						<td contenteditable>{{ servicio.monto }}</td> -->
-			    						<td><input type="text" ng-model="servicio.monto" ng-change="vm.updteTotalOT()"></td>
-			    					</tr>
-			    				</tbody>
-			    			</table>		    			
-		    			</td>
+		    			<!--<td contenteditable><input type="date" ng-model="ot.fecha"></td>-->
+		    			<td><input type="date" ng-model="ot.fecha"></td>
+		    			<!--<td contenteditable><input type="text" ng-model="ot.observacion"></td>-->
+		    			<td><input type="text" ng-model="ot.observacion"></td>
+		    			<!--<td>Servicios</td>-->
 		    		</tr>
 		        </tbody>
 		    </table>
+			<br>
+			
+			<h2>Servicios de la Orden de Trabajo</h2>
+<!-- 		Servicios de la OT -->
+			<table  id="servicios">
+				<tr>
+<!-- 					                <th>Id Servicio</th> -->
+					<th>ID Tipo De Servicio</th>
+<!-- 					                <th>Nombre Tipo De Servicio</th> -->
+					<th>Detalle del Servicio</th>
+					<th>Monto</th>
+				</tr>
+				<!--<tbody ng-repeat="servicio in ot.servicios" >-->
+				<tbody ng-repeat="servicio in vm.cliente.ordenes_de_trabajo[0].servicios" >
+					<tr>
+						<!--<td contenteditable><select id="tipoServicios" name="tipoServicios">-->
+						<!--<td><select id="tipoServicios" name="tipoServicios">
+								<option value="1" ng-selected="{{ servicio.tipoServicio.idServicio == 1 }}">Lavado de Alfombras Muro a Muro</option>
+								<option value="2" ng-selected="{{ servicio.tipoServicio.idServicio == 2 }}" selected>Lavado de Alfombras Sueltas</option>
+								<option value="3" ng-selected="{{ servicio.tipoServicio.idServicio == 3 }}">Limpieza de Piso Flotante</option>
+								<option value="4" ng-selected="{{ servicio.tipoServicio.idServicio == 4 }}">Limpieza de Tapices de Muebles</option>
+								<option value="5" ng-selected="{{ servicio.tipoServicio.idServicio == 5 }}">Limpieza de Tapices de Automóviles</option>
+								<option value="6" ng-selected="{{ servicio.tipoServicio.idServicio == 6 }}">Lavandería Con Retiro a Domicilio</option>
+								<option value="7" ng-selected="{{ servicio.tipoServicio.idServicio == 7 }}">Limpieza de Colchones</option>
+							</select></td>-->	
+							<td>
+								<select name="tipoServicios" id="tipoServicios"
+										ng-options="option.nombre for option in data.availableOptions track by option.idServicio"
+										 ng-model="servicio.tipoServicio"></select>
+							</td>
+							
+						<td><input type="text" ng-model="servicio.detalleServicio"></td>
+						<td><input type="text" ng-model="servicio.monto" ng-change="vm.updteTotalOT()"></td>
+					</tr>
+				</tbody>
+			</table>
+
 
 		    </div>
 		</form>
 	</section>
+  </div>
 </div>
 	    <form id="genOT" action="/generarPdfOT" method="POST">
 	    	<input type="hidden" id="idOT" name="idOT">
@@ -192,6 +200,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
 <script type="text/javascript" src="/js/insertclient.js"></script>
+<!--<script type="text/javascript" src="/js/insertclient2.js"></script>-->
 
 <script>
 

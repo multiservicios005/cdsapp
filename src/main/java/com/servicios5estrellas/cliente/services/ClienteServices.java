@@ -59,11 +59,18 @@ public class ClienteServices {
 	public Cliente insertar(Cliente cli) {
 		System.out.println("ClienteServices.insertar()");
 		
-		int nextServicioId = servicioRepo.getNextId();
-		int nextIdOT = otRepo.getNextId();
+//		int nextServicioId = servicioRepo.getNextId();
+//		int nextIdOT = otRepo.getNextId();
 //		cli.setIdCliente(clienteRepo.getNextId());
 		System.out.println("cliente: "+cli);
 		Orden_De_Trabajo otEliminar = null;
+		
+		Cliente cli2 = clienteRepo.findByNombreOrTelefonoOrDireccion(cli.getNombre(), cli.getTelefono(), cli.getDireccion());
+		if(cli2 != null) {
+			System.out.println("El cliente "+cli2.getIdCliente()+" ya se encuentra registrado en el sistema");
+			return null;
+		}
+		
 		
 		for (Orden_De_Trabajo ot : cli.getOrdenes_de_trabajo()) {
 			ot.setCliente(cli);
@@ -78,7 +85,7 @@ public class ClienteServices {
 				System.out.println("*****   s.getTipoServicio().getIdServicio():  "+s.getTipoServicio().getIdServicio());
 				s.setTipoServicio(tipoServicioRepo.findById(s.getTipoServicio().getIdServicio()).get());
 //				###s.setIdServicioOT(nextServicioId);
-				nextServicioId = nextServicioId + 1;
+//				nextServicioId = nextServicioId + 1;
 			}
 			//Remover la OT de la lista de OTs del cliente si el total de esta OT es cero
 			if(ot.getTotal() == 0) {

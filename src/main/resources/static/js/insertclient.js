@@ -18,7 +18,8 @@ function controladorPrincipal($scope, $http){
 	//vm.cliente.ordenes_de_trabajo.push({total:0, fecha:new Date(), observacion:"", servicios:[]});
 	//vm.cliente.ordenes_de_trabajo.push({total:0, fecha:new Date(), observacion:"", servicios:[{tipoServicio:{idServicio: 2, nombre: "Lavado de Alfombras Sueltas"}, detalleServicio:"Living de 5x5", monto:46000}]});
 	vm.cliente.ordenes_de_trabajo.push({total:0, fecha:new Date(), observacion:"", servicios:[{tipoServicio:{idServicio: 2, nombre: "Lavado de Alfombras Sueltas"}, detalleServicio:"", monto:null}]});
-//	console.log("length OTs: "+vm.cliente.ordenes_de_trabajo.length);
+	console.log("length OTs: "+vm.cliente.ordenes_de_trabajo.length);
+	console.log("length OTs: "+vm.cliente.ordenes_de_trabajo[0].total);
 	vm.cliente.comuna = "Viña del Mar";
 	vm.cliente.fecha = new Date(); 
 	
@@ -344,21 +345,31 @@ function controladorPrincipal($scope, $http){
 		console.log(vm.cliente);
 		$http.post("/clientes", vm.cliente)
 			.then(function(res){
-				console.log("idCliente"+res.data.idCliente);
+				console.log("res: "+res);
+				if(res.data == ""){
+					console.log("res.data: "+res.data);
+					mensaje = "Ya existe un cliente con este nombre, teléfono o dirección.";
+					alert(mensaje);
+					return;
+				}
+				console.log("idCliente: "+res.data.idCliente);
 //				vm.cliente=JSON.stringify(res.data);
 				vm.cliente.idCliente=res.data.idCliente;
 				//por supuesto podrás volcar la respuesta al modelo con algo como vm.res = res;
-				console.log("monto"+res.data.ordenes_de_trabajo[0].total);
+				//console.log("monto"+res.data.ordenes_de_trabajo[0].total);
+				console.log("total OT: "+vm.cliente.ordenes_de_trabajo[0].total);
 				//Descargar el pdf con la OT solo si se ha llenado  una OT con los datos.
 				//if(res.data.ordenes_de_trabajo.length > 0){
-				if(res.data.ordenes_de_trabajo[0].total > 0){
+				//if(res.data.ordenes_de_trabajo[0].total > 0){
+				if(vm.cliente.ordenes_de_trabajo[0].total > 0){
 					console.log("idOT = "+res.data.ordenes_de_trabajo[0].idOT);
 					document.getElementById("idOT").value = res.data.ordenes_de_trabajo[0].idOT;
 					console.log("idOT hidden = "+document.getElementById("idOT").value);
 					document.getElementById("genOT").submit();					
 				}
+				alert("El cliente ha sido registrado exitosamente.");
 				});
-		alert("El cliente ha sido registrado exitosamente.");
+			//alert("El cliente ha sido registrado exitosamente.");
 		}
 	
 //	Esta implementación creaba el cliente a partir de un objeto javascript y funciona correctamente.

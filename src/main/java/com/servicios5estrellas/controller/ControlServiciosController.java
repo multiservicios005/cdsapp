@@ -274,5 +274,15 @@ System.out.println("nro de tipos de servicios: "+repo.findAll().size());
 		otPDF.descargarpdf(resp);
 		
 	}
+	
+	@RequestMapping("/clientesFrecuentes")
+	public String clientesFrecuentes(Model model) {
+		seqDao.clientesFrecuentes();
+//		repocli.clientesFrecuentes();
+//		System.out.println("lista sql "+repocli.clientesFrecuentes());
+//		model.addAttribute("clientes", seqDao.clientesFrecuentes());
+		model.addAttribute("clientes", repocli.clientesFrecuentes());
+		return "clientesFrecuentes";
+	}
 
 }
