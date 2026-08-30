@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<html>
 <!-- clientesFrecuentes.html -->
 
 <head>
@@ -21,16 +22,13 @@
 <h2>Clientes Frecuentes</h2>
 
 <!-- 		tabla de Clientes Frecuentes -->
-			<table class="table table-striped table-hover">
+			<table class="table table-striped table-bordered">
 	            <tr>
 	                <th>ID</th>
 	                <th>Nombre</th>
 	                <th>Cantidad OT</th>
 	            </tr>
-				<tbody th:each="cli, itemStat: ${clientes}">
-				<!--<div th:each="p, itemStat: ${evaluados}">
-					<div class="col col-4"><span id="nrop1" th:text="${p.nombre}" /></div>-->
-		    		<tr>
+		    		<tr th:each="cli, itemStat: ${clientes}">
 		    			<td><span id="idCliente" th:text="${cli.idCliente}" /></td>
 		    			<td><span id="nombre" th:text="${cli.nombre}" /></td>
 		    			<td><span id="n" th:text="${cli.n}" /></td>
