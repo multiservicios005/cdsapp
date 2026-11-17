@@ -30,6 +30,7 @@
 	    <!--<button type="button" class="btn btn-primary">Limpiar Respuestas</button>
 	    <input id="pagActualId" name="pagActual" type="hidden" th:value=${nrop3}/3>
 	    <input id="pagid" name="pag" type="hidden" th:value=${pagSgte}>-->
+	    <p id="mensaje"></p>
     </div>
 	    <!--</form>-->
 
@@ -68,6 +69,8 @@ function importar(){
 	var objFile = document.getElementById("file-selector");
 	let file = objFile.files[0];
 //	alert("File name: "+file.name);
+	const texto = document.getElementById("mensaje");
+	texto.textContent = "Importando Clientes !!!";
 	
 	let reader = new FileReader();
 	
@@ -99,6 +102,8 @@ function importar(){
   	};
   	
 //  	console.log("jsondb = "+jsondb);
+//	texto.textContent = "Importación Terminada !!!";
+//	texto.style.display = "block"; // mostrar mensaje
 }
 
 function test(){
